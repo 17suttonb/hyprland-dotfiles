@@ -19,7 +19,7 @@ trackpad scrolling doesn't have velocity
 right click with double press instead of btmright corner
 neovim needs configuring
 
-compare fish and bash config files
+compare fish and bash config files (add fastfetch to fish)
 add widevine installer to install script
 
 luks full disk encryption, auto-unlock user keyring on login
