@@ -2,16 +2,38 @@
 /* ======================= */
 /* Global Styles           */
 /* ======================= */
+
 * {
   border: none;
-  font-family: "SF Pro";
+  font-family: "SF Pro Text";
   font-size: 16px;
+  font-weight: 500;
   box-shadow: none;
-  min-width: 28px;
+  border-radius: 9999px;
+  background: transparent;
+  color: white;
+  margin: 0;
 }
 
+.module, .module button {
+    padding-left: 0.4em;
+    padding-right: 0.7em;
+    min-width: 22px;
+}
+
+
 window#waybar {
+  /* padding: 12px; */
+  /* background: rgba(255, 0, 0, 0.5); */
   background: transparent;
+  /* border-radius: 19px 19px 0 0; */
+  /* min-height: 64px; */
+}
+
+box.horizontal {
+    margin-top: 2px;
+    margin-bottom: 0px;
+    margin-left: 4px;
 }
 
 /* ======================= */
@@ -26,21 +48,21 @@ window#waybar {
 #custom-power:hover,
 #custom-notification:hover,
 #pulseaudio.microphone:hover,
-#pulseaudio.sink-muted:hover {
-  opacity: 0.8;
+#pulseaudio.sink-muted:hover,
+#clock:hover,
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* ======================= */
 /* Custom Widgets          */
 /* ======================= */
 #custom-arch {
-  color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
-  padding: 0 14px;
-  margin: 0 4px;
-  /* border: solid 2px @foreground; */
-  border-radius: 10px;
-  min-height: 30px;
+  font-size: 22px;
+  padding-left: 0.4em;
+  padding-right: 0.65em;
+  /* min-width: 22px; */
+  /* margin: -10px; */
 }
 
 /* ======================= */
@@ -52,18 +74,28 @@ window#waybar {
 }
 
 #workspaces button {
-  color: @color1;
-  padding: 0 8px;
   margin: 0 4px;
-  /* border: solid 2px transparent; */
-  border-radius: 10px;
-  min-height: 30px;
+  border: solid 2px transparent;
 }
 
+#workspaces button:last-child {
+    margin: 0;
+    margin-left: 2px;
+}
+
+#workspaces button:first-child {
+    margin: 0;
+    margin-right: 2px;
+}
+
+/* #workspaces button {
+  background: transparent;
+  min-height: 20px;
+} */
+
 #workspaces button.active {
-  color: @foreground;
-  /* border: solid 2px @foreground; */
-  background: rgba(0, 0, 0, 0.1);
+  border: solid 2px rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
 }
 
 #workspaces button.urgent {
@@ -82,13 +114,10 @@ window#waybar {
 /* ======================= */
 #clock {
   padding: 0 12px;
-  margin: 0 4px;
-  /* border: solid 2px @foreground; */
-  border-radius: 10px;
-  color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
-  font-weight: 500;
-  min-height: 30px;
+  background: transparent;
+  /* margin: 0 4px; */
+  /* font-weight: 500; */
+  /* min-height: 30px; */
 }
 
 #mpris {
@@ -96,28 +125,28 @@ window#waybar {
   padding: 0 12px;
   margin: 0 4px;
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   min-height: 30px;
 }
 
 #mpris.playing {
   color: #8ec07c;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 #mpris.paused {
   color: #d79921;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 #mpris.stopped {
   color: #cc241d;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 #custom-monitors {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   border-radius: 10px;
@@ -126,7 +155,7 @@ window#waybar {
 
 #cpu {
   color: @color14;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   border-radius: 10px;
@@ -137,7 +166,7 @@ window#waybar {
 /* System Indicators       */
 /* ======================= */
 #tray {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   /* border: solid 2px @foreground; */
@@ -164,7 +193,7 @@ window#waybar {
 
 #custom-menu {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   /* border: solid 2px @foreground; */
@@ -178,7 +207,7 @@ tooltip class {
 
 #custom-updates {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   /* border: solid 2px @textcolor; */
@@ -206,7 +235,7 @@ tooltip class {
 
 #power-profiles-daemon {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   /* border: solid 2px @foreground; */
@@ -237,7 +266,7 @@ tooltip class {
 /* ======================= */
 #network {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   /* border: solid 2px @foreground; */
@@ -247,7 +276,7 @@ tooltip class {
 
 #bluetooth {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   /* border: solid 2px @foreground; */
@@ -273,7 +302,7 @@ tooltip class {
 
 #pulseaudio {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   /* border: solid 2px @foreground; */
@@ -290,7 +319,7 @@ tooltip class {
 #pulseaudio.microphone {
   color: @foreground;
   /* border: solid 2px @foreground; */
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 #pulseaudio.microphone.source-muted {
@@ -300,7 +329,7 @@ tooltip class {
 }
 
 #pulseaudio-slider {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   border-radius: 10px;
@@ -331,7 +360,7 @@ tooltip class {
 /* ======================= */
 #backlight {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   /* border: solid 2px @foreground; */
@@ -340,7 +369,7 @@ tooltip class {
 }
 
 #backlight-slider {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   border-radius: 10px;
@@ -357,7 +386,7 @@ tooltip class {
   min-height: 8px;
   min-width: 100px;
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 #backlight-slider highlight {
   min-width: 8px;
@@ -371,7 +400,7 @@ tooltip class {
 /* ======================= */
 #battery {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   /* border: solid 2px @foreground; */
@@ -401,7 +430,7 @@ tooltip class {
 /* ======================= */
 #custom-notification {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 0 12px;
   margin: 0 4px;
   border-radius: 10px;
@@ -410,13 +439,13 @@ tooltip class {
 
 #custom-notification.notification {
   color: #d79921;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 #custom-notification.dnd-notification,
 #custom-notification.inhibited-notification {
   color: #cc241d;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* ======================= */
@@ -424,7 +453,7 @@ tooltip class {
 /* ======================= */
 #custom-power {
   color: @foreground;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   margin: 0 4px;
   padding: 0 12px;
   /* border: solid 2px @foreground; */

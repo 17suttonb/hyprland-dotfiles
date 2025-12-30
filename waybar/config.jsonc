@@ -3,9 +3,11 @@
   "layer": "top",
   "position": "top",
   "spacing": 0,
-  "margin": "8px 8px 0 8px",
-  "modules-left": ["custom/arch", "hyprland/workspaces"],
-  "modules-center": ["clock", "mpris"],
+  "margin": "0 0 0 0",
+  "height": 35,
+  "exclusive": true,
+  "modules-left": ["custom/arch", "clock", "hyprland/workspaces", "mpris"],
+//   "modules-center": ["clock"],
   "modules-right": [
     "tray",
     "group/group-extras",
@@ -47,7 +49,7 @@
     "modules": ["pulseaudio", "pulseaudio/slider"]
   },
   "custom/arch": {
-    "format": "󰣇  btw",
+    "format": "󰣇",
     "tooltip": false,
     "on-click": "alacritty",
     "on-click-right": ""
@@ -57,17 +59,13 @@
     "all-outputs": false,
     "show-special": true,
     "special-visible-only": true,
-    "persistent-workspaces": {
-      "*": 5
-    },
     "on-click": "activate",
     "ignore-workspaces": ["scratch"]
   },
   "clock": {
     "interval": 1,
-    "format": "{:%H:%M:%S %p}",
-    "format-alt": "{:%a, %b %d}",
-    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+    "format": "{:%a %d %b %H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>"
   },
   "mpris": {
     "format": "{player_icon} {status_icon}",
@@ -145,14 +143,14 @@
   //   }
   // },
 
-//   "custom/updates": {
-//     "format": "<span size='14pt' font='Material Symbols Outlined'>package</span>",
-//     "escape": true,
-//     "return-type": "json",
-//     "exec": "~/.config/scripts/system/package-updates.sh",
-//     "interval": 1800,
-//     "on-click": "alacritty -e yay -Syu --noconfirm"
-//   },
+  //   "custom/updates": {
+  //     "format": "<span size='14pt' font='Material Symbols Outlined'>package</span>",
+  //     "escape": true,
+  //     "return-type": "json",
+  //     "exec": "~/.config/scripts/system/package-updates.sh",
+  //     "interval": 1800,
+  //     "on-click": "alacritty -e yay -Syu --noconfirm"
+  //   },
   "network": {
     "format-icons": {
       "wifi": [
