@@ -76,7 +76,7 @@ readonly PACMAN_PACKAGES=(
     mesa        # OpenGL
     libva       # Video Acceleration API library
     libva-utils # CLI tools for libva
-    
+
     
     #### DESKTOP COMPONENTS
     waybar          # Customizable taskbar
@@ -124,13 +124,14 @@ readonly PACMAN_PACKAGES=(
     
     
     #### APPS
-    zathura             # Document viewer
-    zathura-pdf-mupdf   # PDF extension
-    easyeffects         # Audio manipulation tools
-    gnome-software      # Flatpak application store
-    gnome-disk-utility  # GUI Diskutil
-    glmark2             # OpenGL benchmarking tool
-    steam               # Game/software platform
+    zathura                 # Document viewer
+    zathura-pdf-mupdf       # PDF extension
+    easyeffects             # Audio manipulation tools
+    gnome-software          # Flatpak application store
+    gnome-disk-utility      # GUI Diskutil
+    gnome-system-monitor    # GUI system-monitor
+    glmark2                 # OpenGL benchmarking tool
+    steam                   # Game/software platform
     
     
     #### LIBRARIES
@@ -165,6 +166,8 @@ readonly AUR_PACKAGES=(
     nerd-fonts  # Nerd fonts
     nerd-fonts-sf-mono-ligatures
     ttf-ms-fonts
+    light # backlighext control
+    # light -s sysfs/leds/kbd_backlight -S 100
     
     # hyprshutdown # Graceful shutdown utility
     # hyprsysteminfo # System information display
@@ -172,23 +175,21 @@ readonly AUR_PACKAGES=(
     # waytrogen
     hyprswitch
     bongocat
+    hyprmon-bin
     # wlogout
-    # visual-studio-code-bin
+    visual-studio-code-bin
     # ncurses5-compat-libs
     # mware-keymaps
     # vmware-workstation
 )
 
 readonly FLATPAK_APPS=(
-    # com.google.Chrome
-    # com.github.tchx84.Flatseal
-    # com.discordapp.Discord
-    # com.spotify.Client
-    # com.obsproject.Studio
-    # org.videolan.VLC
-    # org.audacityteam.Audacity
-    # org.mozilla.firefox
-    # com.valvesoftware.Steam
+    org.chromium.Chromium
+    dev.vencord.Vesktop
+    com.github.tchx84.Flatseal
+    org.videolan.VLC
+    org.audacityteam.Audacity
+    org.mozilla.firefox
 )
 
 TMP_BUILD_DIR=""
