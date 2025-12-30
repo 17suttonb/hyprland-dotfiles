@@ -15,6 +15,9 @@ so credits to saatvik333. I also largely based the install scripts on their niri
 
 The installation script assumes a clean Arch-Linux installation, aka intended to setup a whole desktop stack from a minimal install, not just the requirements for these dotfiles.
 
+This script is idempotent so you can run as many times as you like :)
+It will auto update/sync everything so any package or repo changes and they will be pulled.
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Paracolax1/hyprland-dotfiles/refs/heads/aarch64/install_apple.sh -o install_apple.sh
 chmod +x install_apple.sh
