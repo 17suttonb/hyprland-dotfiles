@@ -11,6 +11,18 @@ in installer set default wallpaper for theme-sync to work
 battery charge percentage 80% with health check 100% 1-2months
 also fix that werid kernel warning about soc and battery
 
-chromium sync flags
+copy chromium config to flatpak location
 
 hyprshutdown and hyprsysteminfo don't install (even though they should)
+
+trackpad scrolling doesn't have velocity
+right click with double press instead of btmright corner
+neovim needs configuring
+
+compare fish and bash config files
+add widevine installer to install script
+
+luks full disk encryption, auto-unlock user keyring on login
+add boot splash screen
+add login screen
+add spongebob splash to boot or shutdown lol
