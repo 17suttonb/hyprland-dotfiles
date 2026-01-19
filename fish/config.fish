@@ -30,6 +30,10 @@ set -g fish_greeting ""
 # Fish-specific aliases
 alias fishconfig '$EDITOR ~/.config/fish/config.fish'
 
+if test -f ~/.config/shell.fish
+    source ~/.config/shell.fish
+end
+
 # Fish-specific functions
 function mkcd
     mkdir -p $argv[1]; and cd $argv[1]

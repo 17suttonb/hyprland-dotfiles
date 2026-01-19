@@ -80,8 +80,7 @@ readonly PACMAN_PACKAGES=(
     
     #### DESKTOP COMPONENTS
     waybar          # Customizable taskbar
-    gtklock         # Lockscreen
-    # hyprlock (COME BACK TO THIS)
+    hyprlock        # Lock screen
     alacritty       # Terminal Emulator
     hyprpwcenter    # Control for pipewire
     hyprsunset      # Blue light filter
@@ -348,6 +347,32 @@ install_aur_packages() {
     else
         fatal "Failed to install AUR packages."
     fi
+}
+
+install_wallust() {
+    info "Installing wallust"
+    info "Building from source, this may take several minutes..."
+
+    if cargo install wallust; then
+        msg "Wallust built from source successfully"
+    else
+        fatal "Wallust failed to install"
+    fi
+
+    msg "Wallust installed succesfully"
+}
+
+install_waytrogen() {
+    info "Installing waytrogen from custom package"
+
+    cd waytrogen-pkg
+    if makepkg -si --noconfirm; then
+        msg "Installed waytrogen successfully!"
+    else
+        fatal "Waytrogen failed to install"
+    fi
+
+    msg "Installed Waytrogen"
 }
 
 install_colloid_theme() {
@@ -720,47 +745,28 @@ install_wallpapers() {
 }
 
 create_systemd_services() {
-    info "Creating gtklock service for manual/idle trigger only..."
+    info "Creating systemd services"
     local service_dir="${HOME}/.config/systemd/user"
     mkdir -p "${service_dir}"
-    create_gtklock_service "${service_dir}"
     
     systemctl --user daemon-reload || warn "Failed to reload systemd daemon."
+    if [ -f "${DOTFILES_DIR}/battery-charge-limit.service" ]; then
+        msg "Service definition file exists"
+        sudo cp $DOTFILES_DIR/battery-charge-limit.service /etc/systemd/system/battery-charge-limit.service
+    else
+        error "Missing battery-charge-limit.service file!! Ignoring"
+    fi
+
+    sudo systemctl daemon-reload
     msg "Systemd services configured."
 }
 
 enable_systemd_services() {
     info "Enabling systemd services"
     systemctl --user enable --now pipewire pipewire-pulse wireplumber
-    sudo systemctl enable --now bluetooth
+    sudo systemctl enable --now bluetooth battery-charge-limit
     
     msg "Systemd services enabled"
-}
-
-create_gtklock_service() {
-    local service_dir="$1"
-    
-    if ! verify_binary gtklock; then
-        warn "gtklock binary not found, skipping service creation"
-        return
-    fi
-    
-    local gtklock_bin
-    gtklock_bin="$(command -v gtklock)"
-    
-  cat > "${service_dir}/gtklock.service" <<EOF
-[Unit]
-Description=GTKLock Screen Locker
-Documentation=man:gtklock(1)
-
-[Service]
-Type=simple
-ExecStart=${gtklock_bin}
-Restart=no
-EOF
-    
-    info "Created: gtklock.service (manual trigger only)"
-    info "Note: gtklock will NOT autostart. Trigger it via 'systemctl --user start gtklock'"
 }
 
 install_hypr_plugins() {
@@ -842,6 +848,19 @@ install_flatpak_apps() {
     msg "Installed all Flatpak apps"
 }
 
+install_vicinae() {
+    info "Installing vicinae from custom package"
+
+    cd vicinae-pkg
+    if makepkg -si --noconfirm; then
+        msg "Installed vicinae successfully!"
+    else
+        fatal "Vicinae failed to install"
+    fi
+
+    msg "Installed vicinae"
+}
+
 configure_bongocat() {
     info "Configuring bongocat"
     sudo groupadd input
@@ -879,6 +898,18 @@ main() {
     info "Installing AUR packages"
     install_aur_packages
     msg "AUR packages installed"
+
+    info "Installing Wallust"
+    install_wallust
+    msg "Installed Wallust successfully"
+
+    info "Installing Vicinae"
+    install_vicinae
+    msg "Vicinae installed successfully"
+
+    info "Installing Waytrogen"
+    install_waytrogen
+    msg "Waytrogen installed successfully"
     
     info "Installing GTK themes"
     install_gtk_themes
@@ -921,8 +952,7 @@ main() {
     msg "Installed flatpak apps successfully"
     
     info "Refreshing wallpaper and themes"
-    # waytrogen -r
-    ~/.config/scripts/theme/theme-sync.sh
+    waytrogen -r -e ~/.config/scripts/theme/theme-sync.sh
     msg "Refreshed wallpaper and themes successfully"
     
     info "Dotfiles deployed successfully!"
