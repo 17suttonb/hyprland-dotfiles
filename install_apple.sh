@@ -801,11 +801,11 @@ install_hypr_plugins() {
     fi
     
     info "Enabling plugins"
-    if hyprpm enable hyprexpo; then
-        msg "Enabled hyprexpo plugin"
-    else
-        error "Failed to enable hyprexpo plugin"
-    fi
+    # if hyprpm enable hyprexpo; then
+    #     msg "Enabled hyprexpo plugin"
+    # else
+    #     error "Failed to enable hyprexpo plugin"
+    # fi
 }
 
 configure_waytrogen() {

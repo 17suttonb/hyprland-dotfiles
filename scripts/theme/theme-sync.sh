@@ -329,8 +329,8 @@ reload_system_components() {
     
     # Reload components in order
     reload_hyprland
-    reload_waybar
-    restart_dunst
+    #reload_waybar
+    #restart_dunst
     reload_swaync
     restart_hyprswitch
     reload_hyprland_plugins
