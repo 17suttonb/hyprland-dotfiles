@@ -4,6 +4,8 @@
 
 ~~waytrogen doesnt work~~
 
+the date is in UTC?
+
 (no idea how to fix as no fucking logs) hyprexpo installs but fails to initialise (bind config disabled for now)
 
 (maybe fixed?) in installer set default wallpaper for theme-sync to work
@@ -14,6 +16,8 @@ also fix that werid kernel warning about soc and battery
 copy chromium config to flatpak location
 
 hyprshutdown and hyprsysteminfo don't install (even though they should)
+
+swap iwd for wpa_supplicant
 
 trackpad scrolling doesn't have velocity
 right click with double press instead of btmright corner

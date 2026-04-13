@@ -50,7 +50,9 @@ readonly PACMAN_PACKAGES=(
     linux-headers               # Header files for installed kernel
     gtkmm-4.0                   # C++ bindings for GTK 4
     go                          # Golang compiler/tools
-    
+    qt6-base
+    qt6-declarative
+
     networkmanager              # Network manager
     pacman-contrib              # Useful pacman scripts, e.g. checkupdates
     
@@ -158,7 +160,7 @@ readonly AUR_PACKAGES=(
     qogir-icon-theme-git
     swaync          # Sway notification center
     # wallust-git     # Color palette maker
-    # vicinae     # Application launcher
+    vicinae     # Application launcher
     dust            # CLI disk usage overview
     thunar          # GUI file manager
     minizip         # Zips files
@@ -189,6 +191,7 @@ readonly FLATPAK_APPS=(
     org.videolan.VLC
     org.audacityteam.Audacity
     org.mozilla.firefox
+    org.wireshark.Wireshark
 )
 
 TMP_BUILD_DIR=""
@@ -895,6 +898,10 @@ main() {
     install_pacman_packages
     msg "Official packages installed (wayland, waybar, fish, display drivers etc.)"
     
+    info "Cloning dotfiles repository"
+    clone_or_update_dotfiles
+    msg "Dotfiles repo cloned from ${DOTFILES_REPO}"
+
     info "Installing AUR packages"
     install_aur_packages
     msg "AUR packages installed"
@@ -903,9 +910,9 @@ main() {
     install_wallust
     msg "Installed Wallust successfully"
 
-    info "Installing Vicinae"
-    install_vicinae
-    msg "Vicinae installed successfully"
+    # info "Installing Vicinae"
+    # install_vicinae
+    # msg "Vicinae installed successfully"
 
     info "Installing Waytrogen"
     install_waytrogen
@@ -918,10 +925,6 @@ main() {
     info "Installing icon themes"
     install_icon_themes
     msg "Icon themes installed (Colloid icons)"
-    
-    info "Cloning dotfiles repository"
-    clone_or_update_dotfiles
-    msg "Dotfiles repo cloned from ${DOTFILES_REPO}"
     
     info "Installing fonts"
     install_fonts

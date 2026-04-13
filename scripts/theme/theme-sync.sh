@@ -31,7 +31,7 @@ readonly LOG_FILE="$CACHE_DIR/${SCRIPT_NAME%.sh}.log"
 readonly LOCK_FILE="/tmp/${SCRIPT_NAME%.sh}.lock"
 
 # Script paths
-readonly WOFI_SCRIPT="$CONFIG_DIR/scripts/theme/wofi-colors.sh"
+# readonly WOFI_SCRIPT="$CONFIG_DIR/scripts/theme/wofi-colors.sh"
 readonly WAYBAR_SCRIPT="$CONFIG_DIR/scripts/theme/waybar-detection.sh"
 readonly GTK_SCRIPT="$CONFIG_DIR/scripts/theme/gtk-colors.sh"
 
@@ -46,10 +46,10 @@ get_current_wallpaper() {
     log_debug "Retrieving current wallpaper from swww"
     
     local wallpaper
-    wallpaper=$(swww query 2>/dev/null | grep -oP '(?<=image: ).*' | head -n1 | tr -d '\n\r')
+    wallpaper=$(waytrogen -l | grep -Po '(?<="path": )".+"' | head -n 1 | tr -d '"')
     
     if [[ -z "$wallpaper" ]]; then
-        die "No wallpaper detected from swww query"
+        die "No wallpaper detected from waytrogen query"
     fi
     
     if [[ ! -f "$wallpaper" ]]; then
@@ -211,7 +211,7 @@ execute_theme_scripts() {
     execute_waybar_detection "$wallpaper"
     execute_gtk_theme_update
     execute_wallust_generation "$wallpaper"
-    execute_wofi_color_update
+    # execute_wofi_color_update
     
     log_success "All theme scripts executed successfully"
 }
@@ -329,8 +329,8 @@ reload_system_components() {
     
     # Reload components in order
     reload_hyprland
-    # reload_waybar
-    # restart_dunst
+    reload_waybar
+    restart_dunst
     reload_swaync
     restart_hyprswitch
     reload_hyprland_plugins
@@ -350,7 +350,7 @@ main() {
     ensure_directory "$(dirname "$WALLPAPER_CACHE")"
     
     # Validate system dependencies
-    validate_dependencies "swww" "wallust" "hyprctl"
+    validate_dependencies "waytrogen" "wallust" "hyprctl"
     
     # Process current wallpaper (handles GIF extraction)
     local wallpaper

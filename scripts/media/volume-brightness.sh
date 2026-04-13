@@ -4,8 +4,8 @@
 # Volume & Brightness Control
 # ~/.config/scripts/media/volume-brightness.sh
 # Description: Controls system volume, brightness, and media playback with notifications
-# Author: saatvik333
-# Version: 2.0
+# Author: saatvik333, Paracolax
+# Version: 2.1
 # Dependencies: pactl, brightnessctl, playerctl, notify-send
 #===============================================================================
 
@@ -136,10 +136,7 @@ show_mic_notification() {
 
 # --- Brightness Functions ---
 get_brightness() {
-    local current max
-    current=$(brightnessctl g)
-    max=$(brightnessctl m)
-    echo $((current * 100 / max))
+    echo $(brightnessctl | grep -Po '[0-9]{1,3}(?=%)')
 }
 
 get_brightness_icon() {
