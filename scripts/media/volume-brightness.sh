@@ -19,6 +19,8 @@ readonly VOLUME_STEP=5
 readonly BRIGHTNESS_STEP=5
 readonly MAX_VOLUME=100
 readonly NOTIFICATION_TIMEOUT=1000
+readonly VOLUME_LOCK="/tmp/volume.lock"
+readonly BRIGHTNESS_LOCK="/tmp/brightness.lock"
 readonly DOWNLOAD_ALBUM_ART=false
 readonly SHOW_ALBUM_ART=false
 readonly SHOW_MUSIC_IN_VOLUME=true
@@ -218,21 +220,30 @@ show_music_notification() {
 
 # --- Control Functions ---
 volume_up() {
-    pactl set-sink-mute @DEFAULT_SINK@ 0
-    local current_volume
-    current_volume=$(get_volume)
-    
-    if (( current_volume + VOLUME_STEP > MAX_VOLUME )); then
-        pactl set-sink-volume @DEFAULT_SINK@ "${MAX_VOLUME}%"
-    else
-        pactl set-sink-volume @DEFAULT_SINK@ "+${VOLUME_STEP}%"
+    if (
+        flock -xn 9
+        local current new_val
+        current=$(get_volume)
+        new_val=$(( (current / VOLUME_STEP + 1) * VOLUME_STEP ))
+        new_val=$(( new_val < MAX_VOLUME ? new_val : MAX_VOLUME ))
+        pactl set-sink-mute @DEFAULT_SINK@ 0
+        pactl set-sink-volume @DEFAULT_SINK@ "${new_val}%"
+    ) 9>"$VOLUME_LOCK"; then
+        show_volume_notification
     fi
-    show_volume_notification
 }
 
 volume_down() {
-    pactl set-sink-volume @DEFAULT_SINK@ "-${VOLUME_STEP}%"
-    show_volume_notification
+    if (
+        flock -xn 9
+        local current new_val
+        current=$(get_volume)
+        new_val=$(( (current - 1) / VOLUME_STEP * VOLUME_STEP ))
+        new_val=$(( new_val > 0 ? new_val : 0 ))
+        pactl set-sink-volume @DEFAULT_SINK@ "${new_val}%"
+    ) 9>"$VOLUME_LOCK"; then
+        show_volume_notification
+    fi
 }
 
 volume_mute() {
@@ -246,13 +257,29 @@ mic_mute() {
 }
 
 brightness_up() {
-    brightnessctl set "${BRIGHTNESS_STEP}%+"
-    show_brightness_notification
+    if (
+        flock -xn 9
+        local current new_val
+        current=$(get_brightness)
+        new_val=$(( (current / BRIGHTNESS_STEP + 1) * BRIGHTNESS_STEP ))
+        new_val=$(( new_val < 100 ? new_val : 100 ))
+        brightnessctl set "${new_val}%"
+    ) 9>"$BRIGHTNESS_LOCK"; then
+        show_brightness_notification
+    fi
 }
 
 brightness_down() {
-    brightnessctl set "${BRIGHTNESS_STEP}%-"
-    show_brightness_notification
+    if (
+        flock -xn 9
+        local current new_val
+        current=$(get_brightness)
+        new_val=$(( (current - 1) / BRIGHTNESS_STEP * BRIGHTNESS_STEP ))
+        new_val=$(( new_val > 0 ? new_val : 0 ))
+        brightnessctl set "${new_val}%"
+    ) 9>"$BRIGHTNESS_LOCK"; then
+        show_brightness_notification
+    fi
 }
 
 next_track() {
