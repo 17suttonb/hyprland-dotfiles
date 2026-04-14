@@ -56,8 +56,9 @@ readonly PACMAN_PACKAGES=(
     networkmanager              # Network manager
     pacman-contrib              # Useful pacman scripts, e.g. checkupdates
     
-    xdg-desktop-portal          # Flatpak sandbox portal manager (e.g. select file prompt)
-    xdg-desktop-portal-hyprland # Flatpak sandbox portals for Hyprland specific features
+    xdg-desktop-portal          # Portal manager (e.g. select file prompt)
+    xdg-desktop-portal-hyprland # Portals for Hyprland specific features
+    xdg-desktop-portal-gtk      # Portals for GTK specific features (very important for a lot of "regular" applications)
     asahi-desktop-meta          # Packages for supporting desktop environment with Asahi
     arch-install-scripts        # Pacstrap, arch-chroot, etc..
     
