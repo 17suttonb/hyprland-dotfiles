@@ -86,6 +86,7 @@ readonly PACMAN_PACKAGES=(
     xkeyboard-config
     #----------------
     arch-install-scripts        # Pacstrap, arch-chroot, etc..
+    snapper                     # Snapshot manager for BTRFS
     
     
     #### AUDIO
@@ -954,7 +955,8 @@ main() {
     msg "Installed flatpak apps successfully"
     
     info "Refreshing wallpaper and themes"
-    waytrogen -r -e ~/.config/scripts/theme/theme-sync.sh
+    waytrogen -r
+    ~/.config/scripts/theme/theme-sync.sh
     msg "Refreshed wallpaper and themes successfully"
     
     info "Dotfiles deployed successfully!"

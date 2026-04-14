@@ -46,7 +46,7 @@ get_current_wallpaper() {
     log_debug "Retrieving current wallpaper from swww"
     
     local wallpaper
-    wallpaper=$(waytrogen -l | grep -Po '(?<="path": )".+"' | head -n 1 | tr -d '"')
+    wallpaper=$(gsettings get org.Waytrogen.Waytrogen saved-wallpapers | sed "s/^'//;s/'$//" | sed 's/\\n/\n/g' | jq -r '[.[] | select(.path != "")] | last | .path')
     
     if [[ -z "$wallpaper" ]]; then
         die "No wallpaper detected from waytrogen query"

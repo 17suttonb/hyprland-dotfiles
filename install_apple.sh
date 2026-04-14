@@ -61,6 +61,7 @@ readonly PACMAN_PACKAGES=(
     xdg-desktop-portal-gtk      # Portals for GTK specific features (very important for a lot of "regular" applications)
     asahi-desktop-meta          # Packages for supporting desktop environment with Asahi
     arch-install-scripts        # Pacstrap, arch-chroot, etc..
+    snapper                     # Snapshot manager for BTRFS
     
     
     #### AUDIO
@@ -927,7 +928,8 @@ main() {
     msg "Installed flatpak apps successfully"
     
     info "Refreshing wallpaper and themes"
-    waytrogen -r -e ~/.config/scripts/theme/theme-sync.sh
+    waytrogen -r
+    ~/.config/scripts/theme/theme-sync.sh
     msg "Refreshed wallpaper and themes successfully"
     
     info "Dotfiles deployed successfully!"
