@@ -18,6 +18,7 @@ copy chromium config to flatpak location
 hyprshutdown and hyprsysteminfo don't install (even though they should)
 
 fix shell.env etc, it's a mess
+battery waybar widget is wildly inaccurate
 
 swap iwd for wpa_supplicant
 
