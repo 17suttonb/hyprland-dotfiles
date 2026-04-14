@@ -87,6 +87,7 @@ readonly PACMAN_PACKAGES=(
     #----------------
     arch-install-scripts        # Pacstrap, arch-chroot, etc..
     snapper                     # Snapshot manager for BTRFS
+    btrfs-assistant             # GUI for managing btrfs config/subvolumes/snapshots
     
     
     #### AUDIO

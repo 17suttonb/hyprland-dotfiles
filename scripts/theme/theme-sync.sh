@@ -46,7 +46,7 @@ get_current_wallpaper() {
     log_debug "Retrieving current wallpaper from swww"
     
     local wallpaper
-    wallpaper=$(gsettings get org.Waytrogen.Waytrogen saved-wallpapers | sed "s/^'//;s/'$//" | sed 's/\\n/\n/g' | jq -r '[.[] | select(.path != "")] | last | .path')
+    wallpaper=$(gsettings get org.Waytrogen.Waytrogen saved-wallpapers | grep -oP '(?<=")/[^"\\]+' | head -n1)
     
     if [[ -z "$wallpaper" ]]; then
         die "No wallpaper detected from waytrogen query"
@@ -374,11 +374,11 @@ main() {
     update_hyprlock_config "$hyprlock_wallpaper"
     execute_theme_scripts "$wallpaper"
     reload_system_components
-
+    
     
     # Send completion notification
     send_notification "Theme Manager" "Theme Synchronization Complete" \
-        "🎨 All system components updated successfully" "normal" "preferences-desktop-theme"
+    "🎨 All system components updated successfully" "normal" "preferences-desktop-theme"
     
     log_success "Theme synchronization completed successfully"
     

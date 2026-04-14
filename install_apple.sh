@@ -62,6 +62,7 @@ readonly PACMAN_PACKAGES=(
     asahi-desktop-meta          # Packages for supporting desktop environment with Asahi
     arch-install-scripts        # Pacstrap, arch-chroot, etc..
     snapper                     # Snapshot manager for BTRFS
+    btrfs-assistant             # GUI for managing btrfs config/subvolumes/snapshots
     
     
     #### AUDIO
