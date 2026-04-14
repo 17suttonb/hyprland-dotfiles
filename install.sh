@@ -404,6 +404,21 @@ install_waytrogen() {
     fi
 
     msg "Installed Waytrogen"
+    cd "$DOTFILES_DIR"
+}
+
+install_wlogout() {
+    info "Installing wlogout from custom package"
+
+    cd wlogout-pkg
+    if makepkg -si --noconfirm; then
+        msg "Installed wlogout successfully!"
+    else
+        fatal "wlogout failed to install"
+    fi
+
+    msg "Installed wlogout"
+    cd "$DOTFILES_DIR"
 }
 
 install_colloid_theme() {
@@ -918,6 +933,10 @@ main() {
     info "Installing Waytrogen"
     install_waytrogen
     msg "Waytrogen installed successfully"
+
+    info "Installing wlogout"
+    install_wlogout
+    msg "wlogout installed successfully"
     
     info "Installing GTK themes"
     install_gtk_themes
