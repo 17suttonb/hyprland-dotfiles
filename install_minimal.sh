@@ -7,6 +7,10 @@
 #   chmod +x install.sh
 #   ./install.sh
 #
+
+printf "This script is out of date, do not use";
+exit 0
+
 set -euo pipefail
 
 ### CONFIGURATION

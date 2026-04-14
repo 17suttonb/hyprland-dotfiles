@@ -93,7 +93,7 @@ readonly PACMAN_PACKAGES=(
     
     
     #### DESKTOP TOOLS
-    swww        # Wallpaper manager
+    hyprpaper        # Wallpaper manager
     dunst       # Run custom scripts on notifications
     grim        # Screenshot utility
     slurp       # Wayland region selector
@@ -157,6 +157,7 @@ readonly PACMAN_PACKAGES=(
     hyprcursor
 )
 
+# TODO: organise these and properly label
 readonly AUR_PACKAGES=(
     qogir-icon-theme-git
     swaync          # Sway notification center
@@ -176,7 +177,6 @@ readonly AUR_PACKAGES=(
     
     # waytrogen
     hyprswitch
-    bongocat
     hyprmon-bin
     # wlogout
     visual-studio-code-bin
@@ -852,31 +852,6 @@ install_flatpak_apps() {
     msg "Installed all Flatpak apps"
 }
 
-install_vicinae() {
-    info "Installing vicinae from custom package"
-
-    cd vicinae-pkg
-    if makepkg -si --noconfirm; then
-        msg "Installed vicinae successfully!"
-    else
-        fatal "Vicinae failed to install"
-    fi
-
-    msg "Installed vicinae"
-}
-
-configure_bongocat() {
-    info "Configuring bongocat"
-    sudo groupadd input
-    sudo usermod -aG input $USER
-    sudo cat > "/etc/udev/rules.d/99-input.rules" <<EOF
-SUBSYSTEM=="input", GROUP="input", MODE="660"
-EOF
-    sudo udevadm control --reload
-    sudo udevadm trigger
-    msg "Configured bongocat"
-}
-
 main() {
     info "Pre-flight system checks"
     check_not_root
@@ -910,10 +885,6 @@ main() {
     info "Installing Wallust"
     install_wallust
     msg "Installed Wallust successfully"
-
-    # info "Installing Vicinae"
-    # install_vicinae
-    # msg "Vicinae installed successfully"
 
     info "Installing Waytrogen"
     install_waytrogen
@@ -966,7 +937,7 @@ main() {
     echo "  • Reboot your system and select the Hyprland session"
     echo "  • Run any dotfiles helper scripts inside ~/.config/scripts"
     echo "  • Check ~/.config/hypr/hyprland.conf for keyboard layout and monitor settings"
-    echo "  • Configure wallpapers if needed (swww or swaybg)"
+    echo "  • Configure wallpapers if needed (waytrogen)"
     echo ""
     echo "Enjoy your Hyprland setup! 🌶️"
     
