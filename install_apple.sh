@@ -125,6 +125,7 @@ readonly PACMAN_PACKAGES=(
     evtest          # Debug input devices (shows raw kernel events)
     iotop           # I/O monitoring
     eza
+    bluetui         # TUI for bluetooth devices
     
     
     #### APPS
