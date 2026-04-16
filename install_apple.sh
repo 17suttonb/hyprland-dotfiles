@@ -52,7 +52,7 @@ readonly PACMAN_PACKAGES=(
     go                          # Golang compiler/tools
     qt6-base
     qt6-declarative
-
+    
     networkmanager              # Network manager
     pacman-contrib              # Useful pacman scripts, e.g. checkupdates
     
@@ -81,7 +81,7 @@ readonly PACMAN_PACKAGES=(
     mesa        # OpenGL
     libva       # Video Acceleration API library
     libva-utils # CLI tools for libva
-
+    
     
     #### DESKTOP COMPONENTS
     waybar          # Customizable taskbar
@@ -359,40 +359,42 @@ install_aur_packages() {
 install_wallust() {
     info "Installing wallust"
     info "Building from source, this may take several minutes..."
-
+    
     if cargo install wallust; then
         msg "Wallust built from source successfully"
     else
         fatal "Wallust failed to install"
     fi
-
+    
     msg "Wallust installed succesfully"
 }
 
 install_waytrogen() {
     info "Installing waytrogen from custom package"
 
-    cd waytrogen-pkg
+    cd "$DOTFILES_DIR"
+    cd packages/waytrogen-pkg
     if makepkg -si --noconfirm; then
         msg "Installed waytrogen successfully!"
     else
         fatal "Waytrogen failed to install"
     fi
-
+    
     msg "Installed Waytrogen"
     cd "$DOTFILES_DIR"
 }
 
 install_wlogout() {
     info "Installing wlogout from custom package"
-
-    cd wlogout-pkg
+    
+    cd "$DOTFILES_DIR"
+    cd packages/wlogout-pkg
     if makepkg -si --noconfirm; then
         msg "Installed wlogout successfully!"
     else
         fatal "wlogout failed to install"
     fi
-
+    
     msg "Installed wlogout"
     cd "$DOTFILES_DIR"
 }
@@ -778,7 +780,7 @@ create_systemd_services() {
     else
         error "Missing battery-charge-limit.service file!! Ignoring"
     fi
-
+    
     sudo systemctl daemon-reload
     msg "Systemd services configured."
 }
@@ -895,19 +897,19 @@ main() {
     info "Cloning dotfiles repository"
     clone_or_update_dotfiles
     msg "Dotfiles repo cloned from ${DOTFILES_REPO}"
-
+    
     info "Installing AUR packages"
     install_aur_packages
     msg "AUR packages installed"
-
+    
     info "Installing Wallust"
     install_wallust
     msg "Installed Wallust successfully"
-
+    
     info "Installing Waytrogen"
     install_waytrogen
     msg "Waytrogen installed successfully"
-
+    
     info "Installing wlogout"
     install_wlogout
     msg "wlogout installed successfully"
