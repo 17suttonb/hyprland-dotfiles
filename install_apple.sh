@@ -126,6 +126,7 @@ readonly PACMAN_PACKAGES=(
     iotop           # I/O monitoring
     eza
     bluetui         # TUI for bluetooth devices
+    fd              # Fuzzy finder (required for Yazi search)
     
     
     #### APPS
@@ -137,6 +138,7 @@ readonly PACMAN_PACKAGES=(
     gnome-system-monitor    # GUI system-monitor
     glmark2                 # OpenGL benchmarking tool
     steam                   # Game/software platform
+    libreoffice             # Linux equivalent of Office applications, e.g. Word, Powerpoint, Excel
     
     
     #### LIBRARIES
@@ -176,7 +178,7 @@ readonly AUR_PACKAGES=(
     # light -s sysfs/leds/kbd_backlight -S 100
     
     # hyprshutdown # Graceful shutdown utility
-    # hyprsysteminfo # System information display
+    hyprsysteminfo # System information display
     
     # waytrogen
     hyprswitch

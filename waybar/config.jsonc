@@ -185,7 +185,7 @@
     "tooltip-format-enumerate-connected": "{device_alias}",
     "tooltip-format-enumerate-connected-battery": "{device_alias} {device_battery_percentage}%",
     "on-click": "rfkill toggle bluetooth",
-    "on-click-right": "blueman-manager"
+    "on-click-right": "~/.config/scripts/system/floating-run.sh 800 500 bluetui"
   },
   "pulseaudio/slider": {
     "min": 0,
@@ -199,7 +199,7 @@
     "format-icons": {
       "headphone": "<span size='14pt' font='Material Symbols Outlined'>headphones</span>",
       // For my Airpods (find your device name with `pactl list sinks`)
-      "bluez_output.70_AE_D5_BA_99_AB.1": "<span size='13pt' font='Material Symbols Outlined'>earbuds_2</span>",
+      "bluez_output.14_28_76_9A_07_6A.1": "<span size='13pt' font='Material Symbols Outlined'>earbuds_2</span>",
       "hands-free": "<span size='14pt' font='Material Symbols Outlined'>headset_mic</span>",
       "headset": "<span size='14pt' font='Material Symbols Outlined'>headphones</span>",
       "headset-muted": "<span size='14pt' font='Material Symbols Outlined'>headset_off</span>",

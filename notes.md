@@ -15,6 +15,9 @@ also fix that werid kernel warning about soc and battery
 
 copy chromium config to flatpak location
 
+hyprpolkitagent not themed correctly
+^ there is a difference between auth agents and desktop portals!!
+
 hyprshutdown and hyprsysteminfo don't install (even though they should)
 
 fix shell.env etc, it's a mess
