@@ -139,6 +139,7 @@ readonly PACMAN_PACKAGES=(
     glmark2                 # OpenGL benchmarking tool
     steam                   # Game/software platform
     libreoffice             # Linux equivalent of Office applications, e.g. Word, Powerpoint, Excel
+    chromium                # Chromium browser (There are config files which enable the google propriety sync features so it's basically chrome)
     
     
     #### LIBRARIES
@@ -191,7 +192,6 @@ readonly AUR_PACKAGES=(
 )
 
 readonly FLATPAK_APPS=(
-    org.chromium.Chromium
     dev.vencord.Vesktop
     com.github.tchx84.Flatseal
     org.videolan.VLC
@@ -373,7 +373,7 @@ install_wallust() {
 
 install_waytrogen() {
     info "Installing waytrogen from custom package"
-
+    
     cd "$DOTFILES_DIR"
     cd packages/waytrogen-pkg
     if makepkg -si --noconfirm; then
@@ -874,6 +874,153 @@ install_flatpak_apps() {
     msg "Installed all Flatpak apps"
 }
 
+clone_or_update_widevine_installer() {
+    local repo_url="https://github.com/AsahiLinux/widevine-installer"
+    local install_dir="$HOME/.local/share/widevine-installer"
+    
+    info "Checking Widevine installer repo..."
+    
+    if [[ -d "$install_dir/.git" ]]; then
+        if git -C "$install_dir" pull; then
+            msg "Widevine installer repo updated."
+        else
+            warn "Failed to pull Widevine installer repo, re-cloning..."
+            rm -rf "$install_dir"
+            if ! git clone --depth=1 "$repo_url" "$install_dir"; then
+                error "Failed to clone Widevine installer repository."
+                return 1
+            fi
+        fi
+        elif [[ -d "$install_dir" ]]; then
+        warn "Widevine installer directory exists but is not a git repository, re-cloning..."
+        rm -rf "$install_dir"
+        if ! git clone --depth=1 "$repo_url" "$install_dir"; then
+            error "Failed to clone Widevine installer repository."
+            return 1
+        fi
+    else
+        if ! git clone --depth=1 "$repo_url" "$install_dir"; then
+            error "Failed to clone Widevine installer repository."
+            return 1
+        fi
+    fi
+    
+    msg "Widevine installer repo ready at $install_dir"
+}
+
+install_widevine() {
+    local repo_url="https://github.com/AsahiLinux/widevine-installer"
+    local install_dir="$HOME/.local/share/widevine-installer"
+    local state_dir="$HOME/.local/state/widevine-installer"
+    local version_file="$state_dir/installed_commit"
+    local remote_commit
+    
+    mkdir -p "$state_dir"
+    
+    info "Checking Widevine version..."
+    
+    remote_commit="$(git ls-remote "$repo_url" HEAD | awk '{print $1}')" || {
+        warn "Failed to check remote Widevine installer version."
+        return 1
+    }
+    
+    if [[ -f "$version_file" ]] && [[ "$(cat "$version_file")" == "$remote_commit" ]]; then
+        info "Widevine is already installed and up to date."
+        return 0
+    fi
+    
+    if [[ ! -f "$install_dir/widevine-installer" ]]; then
+        error "Widevine installer script not found at $install_dir — run clone_or_update_widevine_installer first."
+        return 1
+    fi
+    
+    info "Running Widevine installer (you will be prompted to accept the license)..."
+    if ! sudo "$install_dir/widevine-installer"; then
+        error "Widevine installation failed."
+        return 1
+    fi
+    
+    echo "$remote_commit" > "$version_file"
+    msg "Widevine installed successfully."
+}
+
+configure_firefox_widevine() {
+    info "Configuring Firefox Flatpak for Widevine..."
+    
+    local installer_dir="$HOME/.local/share/widevine-installer"
+    local gmp_prefs_src="$installer_dir/conf/gmpwidevine.js"
+    
+    if [[ ! -d /var/lib/widevine ]]; then
+        warn "Widevine library not found at /var/lib/widevine — run widevine-installer first."
+    fi
+    
+    if [[ ! -f "$gmp_prefs_src" ]]; then
+        error "Widevine installer repo not found at $installer_dir — run clone_or_update_widevine_installer first."
+        return 1
+    fi
+    
+    if ! flatpak override --user --filesystem=/var/lib/widevine:ro org.mozilla.firefox; then
+        error "Failed to grant Firefox Flatpak filesystem access to Widevine path."
+        return 1
+    fi
+    
+    if ! flatpak override --user \
+    --env=MOZ_GMP_PATH=/var/lib/widevine/gmp-widevinecdm/system-installed \
+    org.mozilla.firefox; then
+        error "Failed to set MOZ_GMP_PATH for Firefox Flatpak."
+        return 1
+    fi
+    
+    # The system installer writes conf/gmpwidevine.js to /usr/lib64/firefox/defaults/pref/,
+    # which Firefox Flatpak never sees (reads from its own bundled path instead).
+    # Read the prefs directly from the cloned repo and inject them into each Flatpak
+    # profile's user.js, transforming pref() → user_pref() for the user.js format.
+    #
+    # Firefox Flatpak overrides XDG_CONFIG_HOME to ~/.var/app/org.mozilla.firefox/config,
+    # so profiles live at ~/.var/app/org.mozilla.firefox/config/mozilla/firefox/ — NOT
+    # the host's ~/.config/mozilla/firefox/ which belongs to the system Firefox install.
+    local profiles_dir="$HOME/.var/app/org.mozilla.firefox/config/mozilla/firefox"
+    
+    local transformed_prefs
+    transformed_prefs="$(sed 's/^pref(/user_pref(/g' "$gmp_prefs_src")"
+    
+    if [[ ! -f "$profiles_dir/profiles.ini" ]]; then
+        warn "Firefox Flatpak profile directory not found — launch Firefox once then re-run this script."
+        msg "Firefox Flatpak filesystem and env overrides applied."
+        return 0
+    fi
+    
+    local injected=0
+    for profile_dir in "$profiles_dir"/*/; do
+        # Only inject into real profiles — they have a prefs.js once Firefox has been used
+        [[ -f "${profile_dir}prefs.js" ]] || continue
+        local user_js="${profile_dir}user.js"
+        
+        # Idempotent: strip any previously written block before re-injecting
+        if [[ -f "$user_js" ]] && grep -q "BEGIN widevine" "$user_js"; then
+            sed -i '/\/\/ BEGIN widevine/,/\/\/ END widevine/d' "$user_js"
+        fi
+        
+        {
+            echo "// BEGIN widevine"
+            echo "$transformed_prefs"
+            echo "// END widevine"
+        } >> "$user_js"
+        
+        injected=$((injected + 1))
+        info "Wrote Widevine prefs to: $user_js"
+    done
+    
+    if [[ $injected -eq 0 ]]; then
+        warn "No Firefox Flatpak profiles found. Launch Firefox once then re-run this script."
+    else
+        msg "Widevine prefs injected into $injected Firefox profile(s)."
+    fi
+    
+    msg "Firefox Flatpak configured for Widevine."
+}
+
+
 main() {
     info "Pre-flight system checks"
     check_not_root
@@ -951,6 +1098,18 @@ main() {
     info "Install flatpak apps"
     install_flatpak_apps
     msg "Installed flatpak apps successfully"
+    
+    info "Cloning / updating Widevine installer"
+    clone_or_update_widevine_installer
+    msg "Widevine installer repo ready"
+    
+    info "Installing Widevine"
+    install_widevine
+    msg "Widevine installed"
+    
+    info "Configuring Firefox Flatpak for Widevine"
+    configure_firefox_widevine
+    msg "Firefox Flatpak Widevine configured"
     
     info "Refreshing wallpaper and themes"
     waytrogen -r
