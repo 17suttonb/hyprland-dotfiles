@@ -394,7 +394,7 @@ install_wallust() {
 install_waytrogen() {
     info "Installing waytrogen from custom package"
 
-    cd waytrogen-pkg
+    cd packages/waytrogen-pkg
     if makepkg -si --noconfirm; then
         msg "Installed waytrogen successfully!"
     else
@@ -408,7 +408,7 @@ install_waytrogen() {
 install_wlogout() {
     info "Installing wlogout from custom package"
 
-    cd wlogout-pkg
+    cd packages/wlogout-pkg
     if makepkg -si --noconfirm; then
         msg "Installed wlogout successfully!"
     else
