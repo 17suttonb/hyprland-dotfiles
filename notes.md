@@ -4,19 +4,19 @@
 
 ~~waytrogen doesnt work~~
 
-the date is in UTC?
+~~the date is in UTC?~~ (just set with timedatectl set-timezone Europe/London)
 
 (no idea how to fix as no fucking logs) hyprexpo installs but fails to initialise (bind config disabled for now)
 
 (maybe fixed?) in installer set default wallpaper for theme-sync to work
 
 battery charge percentage 80% with health check 100% 1-2months
-also fix that werid kernel warning about soc and battery
 
-copy chromium config to flatpak location
+kernel warnings on boot
+
+~~copy chromium config to flatpak location~~ not using chromium in flatpak anymore
 
 hyprpolkitagent not themed correctly
-^ there is a difference between auth agents and desktop portals!!
 
 hyprshutdown and hyprsysteminfo don't install (even though they should)
 
