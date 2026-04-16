@@ -63,7 +63,6 @@ readonly PACMAN_PACKAGES=(
     #-- in place of asahi-desktop-meta --
     alsa-tools
     alsa-utils
-    bankstown
     bluez-tools
     bluez-utils
     drm-info
@@ -77,11 +76,8 @@ readonly PACMAN_PACKAGES=(
     pipewire-alsa
     pipewire-audio
     pipewire-pulse
-    speakersafetyd
-    startup-disk
     virglrenderer
     vulkan-tools
-    widevine
     wireplumber
     xkeyboard-config
     #----------------
