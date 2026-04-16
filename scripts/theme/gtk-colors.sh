@@ -184,6 +184,10 @@ main() {
     
     manage_symlinks "$target_theme"
     update_xsettingsd "$target_theme"
+
+    export GTK_THEME="$target_theme"
+    systemctl --user import-environment GTK_THEME
+    systemctl --user restart hyprpolkitagent
     
     # Verify changes
     local new_theme
