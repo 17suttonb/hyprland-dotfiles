@@ -124,6 +124,7 @@ readonly PACMAN_PACKAGES=(
     ffmpeg      # Multi-media processor
     hyprpicker  # Pick a colour from the screen
     udiskie     # Automounter for removable media
+    network-manager-applet # Tray network manager
     
     
     #### CLI TOOLS

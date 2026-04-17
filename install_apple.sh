@@ -103,6 +103,7 @@ readonly PACMAN_PACKAGES=(
     ffmpeg      # Multi-media processor
     hyprpicker  # Pick a colour from the screen
     udiskie     # Automounter for removable media
+    network-manager-applet  # Tray network manager
     
     
     #### CLI TOOLS
@@ -127,6 +128,7 @@ readonly PACMAN_PACKAGES=(
     eza
     bluetui         # TUI for bluetooth devices
     fd              # Fuzzy finder (required for Yazi search)
+    tmux            # Terminal multiplexer
     
     
     #### APPS
@@ -198,6 +200,8 @@ readonly FLATPAK_APPS=(
     org.audacityteam.Audacity
     org.mozilla.firefox
     org.wireshark.Wireshark
+    org.gnome.Connections
+    org.gnome.Snapshot
 )
 
 TMP_BUILD_DIR=""
