@@ -202,6 +202,7 @@ readonly FLATPAK_APPS=(
     org.wireshark.Wireshark
     org.gnome.Connections
     org.gnome.Snapshot
+    org.kde.krita
 )
 
 TMP_BUILD_DIR=""
