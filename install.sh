@@ -181,6 +181,7 @@ readonly PACMAN_PACKAGES=(
     ttf-liberation
     ttf-liberation-mono-nerd
     hyprcursor
+    chromium
 )
 
 # TODO: organise these and properly label
@@ -212,7 +213,7 @@ readonly AUR_PACKAGES=(
 )
 
 readonly FLATPAK_APPS=(
-    org.chromium.Chromium
+    # org.chromium.Chromium
     dev.vencord.Vesktop
     com.github.tchx84.Flatseal
     org.videolan.VLC
