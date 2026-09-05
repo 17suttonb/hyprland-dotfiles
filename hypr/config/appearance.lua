@@ -1,0 +1,75 @@
+-- APPEARANCE CONFIGURATION
+
+local vars = require("config.variables")
+
+hl.config({
+    general = {
+        border_size = vars.borderSize,
+        gaps_in = vars.gapsIn,
+        gaps_out = vars.gapsOut,
+        resize_on_border = true,
+        no_focus_fallback = true,
+        allow_tearing = true,
+        layout = "master",
+
+        snap = {
+            enabled = true,
+        },
+    },
+
+    cursor = {
+        hide_on_key_press = true,
+        inactive_timeout = 4,
+        warp_on_toggle_special = 1,
+        -- zoom_factor = 2,
+    },
+
+    decoration = {
+        rounding = vars.rounding,
+        active_opacity = vars.opacityActive,
+        inactive_opacity = vars.opacityInactive,
+        dim_special = vars.opacitySpecial,
+
+        shadow = {
+            enabled = false,
+            range = 0,
+            render_power = 3,
+            color = "rgba(1a1a1aee)",
+        },
+
+        blur = {
+            enabled = true,
+            size = 6,
+            noise = 0.03,
+            passes = 2,
+            vibrancy = 0,
+            xray = true,
+            special = false,
+            popups = true,
+            input_methods = true,
+            input_methods_ignorealpha = 0.8,
+        },
+    },
+
+    misc = {
+        force_default_wallpaper = 0,
+        font_family = vars.fontFamily,
+        vrr = 0,
+        disable_hyprland_logo = true,
+        disable_splash_rendering = true,
+        mouse_move_enables_dpms = true,
+        key_press_enables_dpms = true,
+        animate_manual_resizes = false,
+        animate_mouse_windowdragging = false,
+        enable_swallow = false,
+        swallow_regex = "(kitty|allacritty|Alacritty)",
+        on_focus_under_fullscreen = 2,
+        allow_session_lock_restore = true,
+        initial_workspace_tracking = false,
+        focus_on_activate = true,
+    },
+
+    debug = {
+        vfr = true,
+    },
+})

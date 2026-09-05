@@ -1,0 +1,22 @@
+-- FLOATING WINDOW RULES
+
+local vars = require("config.variables")
+
+hl.window_rule({ match = { class = "^(xdg-desktop-portal-gtk)$" }, float = true })
+hl.window_rule({ match = { class = "^(" .. vars.terminal .. ")$", title = "^(top)$" }, float = true })
+hl.window_rule({ match = { class = "^(" .. vars.terminal .. ")$", title = "^(btm)$" }, float = true })
+hl.window_rule({ match = { class = "^(" .. vars.terminal .. ")$", title = "^(htop)$" }, float = true })
+hl.window_rule({ match = { class = "^(thunar)$", title = "^(Rename.*)$" }, float = true })
+hl.window_rule({ match = { class = "^(Thunar)$", title = "^(Rename.*)$" }, float = true })
+hl.window_rule({ match = { class = "^(org.gnome.FileRoller)$" }, float = true })
+hl.window_rule({ match = { class = "^(qt5ct)$" }, float = true })
+hl.window_rule({ match = { class = "^(qt6ct)$" }, float = true })
+hl.window_rule({ match = { class = "^(nwg-look)$" }, float = true })
+hl.window_rule({ match = { class = "^(nwg-displays)$" }, float = true })
+hl.window_rule({ match = { class = "^(org.pulseaudio.pavucontrol)$" }, float = true })
+hl.window_rule({ match = { class = "^(blueman-manager)$" }, float = true })
+hl.window_rule({ match = { class = "^(nm-connection-editor)$" }, float = true })
+hl.window_rule({ match = { class = "^(org.Waytrogen.Waytrogen)$" }, float = true })
+hl.window_rule({ match = { class = "^(waytrogen)$" }, float = true })
+hl.window_rule({ match = { class = "^(com.github.unrud.VideoDownloader)$" }, float = true })
+hl.window_rule({ match = { class = "^(com.interversehq.qView)$" }, float = true })
