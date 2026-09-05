@@ -24,7 +24,7 @@ hl.bind(mainMod .. " + SHIFT + mouse_down", hl.dsp.window.move({ workspace = "r-
 hl.bind(mainMod .. " + SHIFT + mouse_up", hl.dsp.window.move({ workspace = "r+1" }))
 
 -- WINDOW SWITCHING (NOTE: Requires `hyprswitch`)
-local mod = "super"
+local mod = "SUPER"
 local key = "tab"
 local reverse = "grave"
 hl.bind(mod .. " + " .. key,
