@@ -24,6 +24,9 @@ Just general improvements that need doing
 - [ ] Trackpad scrolling doesn't have velocity (sometimes)
 - [x] Right-click with double click
 - [ ] Neovim needs complete configuration etc
+- [ ] Configure hypridle sleep/hibernation
+  - [ ] Add suspend to S3 for sleep, after 30 mins start back up to shutdown (or hibernate for x86)
+- [ ] Captive portal auto open
 
 ## Design
 
