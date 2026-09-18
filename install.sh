@@ -148,6 +148,7 @@ readonly PACMAN_PACKAGES=(
     iotop           # I/O monitoring
     eza
     bluetui         # TUI for bluetooth devices
+    hyprpm          # Build and install plugins (hyprland)
 
     
     

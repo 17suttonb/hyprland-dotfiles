@@ -129,6 +129,7 @@ readonly PACMAN_PACKAGES=(
     bluetui         # TUI for bluetooth devices
     fd              # Fuzzy finder (required for Yazi search)
     tmux            # Terminal multiplexer
+    hyprpm          # Build and install plugins (hyprland)
     
     
     #### APPS
