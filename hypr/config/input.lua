@@ -1,7 +1,5 @@
 -- INPUT CONFIGURATION
 
-local workspace_nav = require("config.workspace_nav")
-
 hl.config({
     input = {
         kb_layout = "gb",
@@ -22,21 +20,17 @@ hl.config({
     },
 })
 
--- Uses the same workspace_nav function as mainMod + comma/period
--- (keybinds/workspaces.lua) instead of Hyprland's built-in "workspace"
--- gesture action, so the swipe and the keybind behave identically
--- (per-monitor scoping, no auto-create past an already-empty workspace).
--- NOTE: if swipe direction feels reversed, swap "left"/"right" below.
+-- Uses Hyprland's built-in "workspace" gesture action rather than the
+-- workspace_nav function (keybinds/workspaces.lua) so the swipe animation
+-- follows your fingers 1:1. A custom Lua function/table action can't hook
+-- into that live-follow renderer -- only the native "workspace" action gets
+-- it -- so this trades workspace_nav's per-monitor scoping and no-pileup
+-- guard (irrelevant here anyway, since monitors.lua only defines eDP-1)
+-- for the smooth native feel.
 hl.gesture({
     fingers = 3,
-    direction = "left",
-    action = function() workspace_nav("next", false) end,
-})
-
-hl.gesture({
-    fingers = 3,
-    direction = "right",
-    action = function() workspace_nav("prev", false) end,
+    direction = "horizontal",
+    action = "workspace",
 })
 
 hl.device({

@@ -1,6 +1,7 @@
 -- WORKSPACE NAVIGATION
--- Shared by the keyboard bindings (keybinds/workspaces.lua) and the
--- touchpad gesture (config/input.lua) so both behave identically.
+-- Used by the keyboard bindings (keybinds/workspaces.lua). The touchpad
+-- gesture (config/input.lua) uses Hyprland's native "workspace" gesture
+-- action instead, to get a swipe animation that follows your fingers.
 --
 -- Navigates workspaces on the focused monitor only (not the global
 -- workspace list), creating a new one past the end instead of wrapping

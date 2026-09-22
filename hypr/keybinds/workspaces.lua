@@ -15,8 +15,8 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 hl.bind(mainMod .. " + ALT + S", hl.dsp.window.move({ workspace = "special:magic", follow = false }))
 
 -- WORKSPACE SCROLLING
--- workspace_nav (config/workspace_nav.lua) is also used by the touchpad
--- gesture in config/input.lua, so both behave identically.
+-- workspace_nav (config/workspace_nav.lua) -- see config/input.lua for why
+-- the touchpad gesture uses Hyprland's native "workspace" action instead.
 hl.bind(mainMod .. " + comma", function() workspace_nav("prev", false) end)
 hl.bind(mainMod .. " + period", function() workspace_nav("next", false) end)
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
