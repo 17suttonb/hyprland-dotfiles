@@ -143,6 +143,7 @@ readonly PACMAN_PACKAGES=(
     steam                   # Game/software platform
     libreoffice             # Linux equivalent of Office applications, e.g. Word, Powerpoint, Excel
     chromium                # Chromium browser (There are config files which enable the google propriety sync features so it's basically chrome)
+    firefox                 # Firefox browser
     
     
     #### LIBRARIES
@@ -199,7 +200,6 @@ readonly FLATPAK_APPS=(
     com.github.tchx84.Flatseal
     org.videolan.VLC
     org.audacityteam.Audacity
-    org.mozilla.firefox
     org.wireshark.Wireshark
     org.gnome.Connections
     org.gnome.Snapshot
