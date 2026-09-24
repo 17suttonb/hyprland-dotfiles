@@ -7,7 +7,9 @@ local workspace_nav = require("config.workspace_nav")
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
     hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+    hl.bind(mainMod .. " + ALT + " .. key, hl.dsp.focus({ workspace = i+10 }))
     hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    hl.bind(mainMod .. " + SHIFT + ALT + " .. key, hl.dsp.window.move({ workspace = i+10 }))
 end
 
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
